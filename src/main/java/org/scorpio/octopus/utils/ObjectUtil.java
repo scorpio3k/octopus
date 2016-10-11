@@ -35,7 +35,7 @@ package org.scorpio.octopus.utils;
  * @author David J. M. Karlsen
  */
 //@Immutable
-public class ObjectUtils {
+public class ObjectUtil {
 
     /**
      * <p><code>ObjectUtils</code> instances should NOT be constructed in
@@ -45,7 +45,7 @@ public class ObjectUtils {
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
      */
-    public ObjectUtils() {
+    public ObjectUtil() {
         super();
     }
 
@@ -124,7 +124,7 @@ public class ObjectUtils {
      * @since 2.6
      */
     public static boolean notEqual(Object object1, Object object2) {
-        return ObjectUtils.equals(object1, object2) == false;
+        return ObjectUtil.equals(object1, object2) == false;
     }
 
     /**
@@ -211,7 +211,7 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
      * 
-     * @see StringUtils#defaultString(String)
+     * @see StringUtil#defaultString(String)
      * @see String#valueOf(Object)
      * @param obj  the Object to <code>toString</code>, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
@@ -234,7 +234,7 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      * 
-     * @see StringUtils#defaultString(String,String)
+     * @see StringUtil#defaultString(String,String)
      * @see String#valueOf(Object)
      * @param obj  the Object to <code>toString</code>, may be null
      * @param nullStr  the String to return if <code>null</code> input, may be null

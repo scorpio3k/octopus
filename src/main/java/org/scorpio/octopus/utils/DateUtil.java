@@ -15,7 +15,7 @@ import java.util.TimeZone;
  * 此类的部分源码参考自APACHE项目
  * </p>
  * 
- * @see DateFormatUtils
+ * @see DateFormatUtil
  */
 public class DateUtil {
 	/**

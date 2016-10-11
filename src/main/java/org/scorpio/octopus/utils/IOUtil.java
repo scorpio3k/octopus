@@ -59,11 +59,11 @@ public class IOUtil {
 		try {
 			if (agent != null && agent.toLowerCase().indexOf("firefox") > -1) {
 				// fireFox下载时会对空格进行截断，暂时将文件名中的空格替换掉
-				result = StringUtils.replace(fileName, " ", "");
+				result = StringUtil.replace(fileName, " ", "");
 				result = new String(result.getBytes("GBK"), "iso8859-1");
 			} else {
 				result = URLEncoder.encode(result, "UTF-8");
-				result = StringUtils.replace(result, "+", "%20");
+				result = StringUtil.replace(result, "+", "%20");
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

@@ -830,7 +830,7 @@ public class TextFormat {
 	}
 
 	/**
-	 * @deprecated 由{@link StringUtils#split(String, String)}取代
+	 * @deprecated 由{@link StringUtil#split(String, String)}取代
 	 */
 	public static String[] split(String s, String tag) {
 		int index = 0;

@@ -517,7 +517,7 @@ public class NumberUtil {
             return null;
         }
         // handle JDK1.3.1 bug where "" throws IndexOutOfBoundsException
-        if (StringUtils.isBlank(str)) {
+        if (StringUtil.isBlank(str)) {
             throw new NumberFormatException("A blank string is not a valid number");
         }  
         return new BigDecimal(str);
@@ -1235,7 +1235,7 @@ public class NumberUtil {
      * @return <code>true</code> if str contains only unicode numeric
      */
     public static boolean isDigits(String str) {
-        if (StringUtils.isEmpty(str)) {
+        if (StringUtil.isEmpty(str)) {
             return false;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1261,7 +1261,7 @@ public class NumberUtil {
      * @return <code>true</code> if the string is a correctly formatted number
      */
     public static boolean isNumber(String str) {
-        if (StringUtils.isEmpty(str)) {
+        if (StringUtil.isEmpty(str)) {
             return false;
         }
         char[] chars = str.toCharArray();

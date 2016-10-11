@@ -15,7 +15,7 @@ import java.util.Locale;
  * @author Apache Jakarta Turbine
  */
 //@Immutable
-public class StringUtils {
+public class StringUtil {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
     // Character.isWhitespace() is faster than WHITESPACE.indexOf()
@@ -57,7 +57,7 @@ public class StringUtils {
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
      */
-    public StringUtils() {
+    public StringUtil() {
         super();
     }
 
@@ -102,7 +102,7 @@ public class StringUtils {
      * @return <code>true</code> if the String is not empty and not null
      */
     public static boolean isNotEmpty(String str) {
-        return !StringUtils.isEmpty(str);
+        return !StringUtil.isEmpty(str);
     }
 
     /**
@@ -152,7 +152,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static boolean isNotBlank(String str) {
-        return !StringUtils.isBlank(str);
+        return !StringUtil.isBlank(str);
     }
 
     /**
@@ -1605,7 +1605,7 @@ public class StringUtils {
         }
         int strLen = str.length();
         if (strLen == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return ArrayUtil.EMPTY_STRING_ARRAY;
         }
         int closeLen = close.length();
         int openLen = open.length();
@@ -1835,7 +1835,7 @@ public class StringUtils {
         int len = str.length();
 
         if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return ArrayUtil.EMPTY_STRING_ARRAY;
         }
 
         if ((separator == null) || (EMPTY.equals(separator))) {
@@ -1912,7 +1912,7 @@ public class StringUtils {
         }
         int len = str.length();
         if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return ArrayUtil.EMPTY_STRING_ARRAY;
         }
         List list = new ArrayList();
         int i = 0, start = 0;
@@ -2000,7 +2000,7 @@ public class StringUtils {
         }
         int len = str.length();
         if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return ArrayUtil.EMPTY_STRING_ARRAY;
         }
         List list = new ArrayList();
         int sizePlus1 = 1;
@@ -2148,7 +2148,7 @@ public class StringUtils {
             return null;
         }
         if (str.length() == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+            return ArrayUtil.EMPTY_STRING_ARRAY;
         }
         char[] c = str.toCharArray();
         List list = new ArrayList();
@@ -2397,7 +2397,7 @@ public class StringUtils {
         }
         Object first = iterator.next();
         if (!iterator.hasNext()) {
-            return ObjectUtils.toString(first);
+            return ObjectUtil.toString(first);
         }
 
         // two or more elements
@@ -4227,7 +4227,7 @@ public class StringUtils {
      * StringUtils.defaultString("bat") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object)
+     * @see ObjectUtil#toString(Object)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @return the passed in String, or the empty String if it
@@ -4248,7 +4248,7 @@ public class StringUtils {
      * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
      *
-     * @see ObjectUtils#toString(Object,String)
+     * @see ObjectUtil#toString(Object,String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @param defaultStr  the default String to return
@@ -4275,11 +4275,11 @@ public class StringUtils {
      * @param defaultStr  the default String to return
      *  if the input is whitespace, empty ("") or <code>null</code>, may be null
      * @return the passed in String, or the default
-     * @see StringUtils#defaultString(String, String)
+     * @see StringUtil#defaultString(String, String)
      * @since 2.6
      */
     public static String defaultIfBlank(String str, String defaultStr) {
-        return StringUtils.isBlank(str) ? defaultStr : str;
+        return StringUtil.isBlank(str) ? defaultStr : str;
     }
 
     /**
@@ -4298,10 +4298,10 @@ public class StringUtils {
      * @param defaultStr  the default String to return
      *  if the input is empty ("") or <code>null</code>, may be null
      * @return the passed in String, or the default
-     * @see StringUtils#defaultString(String, String)
+     * @see StringUtil#defaultString(String, String)
      */
     public static String defaultIfEmpty(String str, String defaultStr) {
-        return StringUtils.isEmpty(str) ? defaultStr : str;
+        return StringUtil.isEmpty(str) ? defaultStr : str;
     }
 
     // Reversing
@@ -4354,7 +4354,7 @@ public class StringUtils {
         // could implement manually, but simple way is to reuse other,
         // probably slower, methods.
         String[] strs = split(str, separatorChar);
-        ArrayUtils.reverse(strs);
+        ArrayUtil.reverse(strs);
         return join(strs, separatorChar);
     }
 
@@ -4798,12 +4798,12 @@ public class StringUtils {
      * @since 2.5
      */
     public static boolean startsWithAny(String string, String[] searchStrings) {
-        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+        if (isEmpty(string) || ArrayUtil.isEmpty(searchStrings)) {
             return false;
         }
         for (int i = 0; i < searchStrings.length; i++) {
             String searchString = searchStrings[i];
-            if (StringUtils.startsWith(string, searchString)) {
+            if (StringUtil.startsWith(string, searchString)) {
                 return true;
             }
         }
@@ -4909,12 +4909,12 @@ public class StringUtils {
      * @since 2.6
      */
     public static boolean endsWithAny(String string, String[] searchStrings) {
-        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+        if (isEmpty(string) || ArrayUtil.isEmpty(searchStrings)) {
             return false;
         }
         for (int i = 0; i < searchStrings.length; i++) {
             String searchString = searchStrings[i];
-            if (StringUtils.endsWith(string, searchString)) {
+            if (StringUtil.endsWith(string, searchString)) {
                 return true;
             }
         }

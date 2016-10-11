@@ -37,7 +37,7 @@ import java.util.TimeZone;
  * @author Stefan Bodewig
  * @author Gary Gregory
  */
-public class DateFormatUtils {
+public class DateFormatUtil {
 
 	// -----------------------------------------------------------------------
 	/**
@@ -51,7 +51,7 @@ public class DateFormatUtils {
 	 * instance to operate.
 	 * </p>
 	 */
-	public DateFormatUtils() {
+	public DateFormatUtil() {
 		super();
 	}
 
@@ -371,7 +371,7 @@ public class DateFormatUtils {
 		Object result = obj;
 		if (obj instanceof Date) {
 			Date date = (Date) obj;
-			result = DateFormatUtils.format(date, DatePatternEnum.DATE.getPattern());
+			result = DateFormatUtil.format(date, DatePatternEnum.DATE.getPattern());
 		} else if (obj instanceof List) {
 			List list = (List) obj;
 			for (int i = 0; i < list.size(); i++) {

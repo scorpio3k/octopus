@@ -39,7 +39,7 @@ import java.util.Map;
  * @author Ashwin 
  * @author Maarten Coene
  */
-public class ArrayUtils {
+public class ArrayUtil {
 
     /**
      * An empty immutable <code>Object</code> array.
@@ -132,7 +132,7 @@ public class ArrayUtils {
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
      */
-    public ArrayUtils() {
+    public ArrayUtil() {
       super();
     }
     // To map
@@ -2191,7 +2191,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2223,7 +2223,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2285,7 +2285,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2319,7 +2319,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2398,7 +2398,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(float[] array, float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2441,7 +2441,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(float[] array, float valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2502,7 +2502,7 @@ public class ArrayUtils {
      *  array input
      */
     public static int indexOf(boolean[] array, boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
@@ -2546,7 +2546,7 @@ public class ArrayUtils {
      *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(boolean[] array, boolean valueToFind, int startIndex) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
