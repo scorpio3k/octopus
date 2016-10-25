@@ -1,16 +1,45 @@
 package org.scorpio.octopus.debug;
 
-import com.sun.jdi.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.sun.jdi.AbsentInformationException;
+import com.sun.jdi.ArrayReference;
+import com.sun.jdi.BooleanValue;
+import com.sun.jdi.Bootstrap;
+import com.sun.jdi.ByteValue;
+import com.sun.jdi.CharValue;
+import com.sun.jdi.ClassType;
+import com.sun.jdi.DoubleValue;
+import com.sun.jdi.Field;
+import com.sun.jdi.FloatValue;
+import com.sun.jdi.IntegerValue;
+import com.sun.jdi.LocalVariable;
+import com.sun.jdi.Location;
+import com.sun.jdi.LongValue;
+import com.sun.jdi.ObjectReference;
+import com.sun.jdi.ReferenceType;
+import com.sun.jdi.ShortValue;
+import com.sun.jdi.StackFrame;
+import com.sun.jdi.StringReference;
+import com.sun.jdi.ThreadReference;
+import com.sun.jdi.Value;
+import com.sun.jdi.VirtualMachine;
+import com.sun.jdi.VirtualMachineManager;
 import com.sun.jdi.connect.AttachingConnector;
 import com.sun.jdi.connect.Connector;
-import com.sun.jdi.event.*;
+import com.sun.jdi.event.BreakpointEvent;
+import com.sun.jdi.event.Event;
+import com.sun.jdi.event.EventIterator;
+import com.sun.jdi.event.EventQueue;
+import com.sun.jdi.event.EventSet;
+import com.sun.jdi.event.VMDisconnectEvent;
 import com.sun.jdi.request.BreakpointRequest;
 import com.sun.jdi.request.EventRequest;
 import com.sun.jdi.request.EventRequestManager;
 import com.sun.tools.jdi.SocketAttachingConnector;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Java 远程调试类
@@ -115,25 +144,23 @@ public class DebugRemoteJava{
     private void logBreadkpoint(BreakpointEvent event) throws Exception{
         ThreadReference threadReference = event.thread();
         StackFrame stackFrame = threadReference.frame(0);
-        List<LocalVariable> localVariables = stackFrame.visibleVariables();
-        localVariables.forEach(t -> {
-            logger.log("===============" + stackFrame.location() + "===============");
-            logger.log("[方法参数]");
-            List<Value> argsList = stackFrame.getArgumentValues();
-            for (Value arg : argsList){
-                logger.log(arg.type().name() + " = " + arg.toString());
-            }
 
-            logger.log("[变量信息]");
-            try {
-                List<LocalVariable> varList = stackFrame.visibleVariables();
-                for(LocalVariable localVariable : varList){
-                    logLocalVariable(stackFrame, localVariable);
-                }
-            } catch (AbsentInformationException e) {
-                throw new RuntimeException(e);
+        logger.log("<<================<<" + stackFrame.location() + ">>================>>");
+        logger.log("[方法参数]");
+        List<Value> argsList = stackFrame.getArgumentValues();
+        for (Value arg : argsList){
+            logger.log(arg.type().name() + " = " + parseValue(arg));
+        }
+
+        logger.log("[变量信息]");
+        try {
+            List<LocalVariable> varList = stackFrame.visibleVariables();
+            for(LocalVariable localVariable : varList){
+                logLocalVariable(stackFrame, localVariable);
             }
-        });
+        } catch (AbsentInformationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void logLocalVariable(StackFrame stackFrame, LocalVariable localVariable){
@@ -142,16 +169,46 @@ public class DebugRemoteJava{
             out.append("[*]");
         }
         out.append(" = ");
+        out.append(parseValue(stackFrame.getValue(localVariable)));
+        logger.log(out.toString());
+    }
 
-        Value value = stackFrame.getValue(localVariable);
-        if(value instanceof StringReference){
+    private String parseValue(Value value){
+        StringBuilder out = new StringBuilder();
+        if(value instanceof StringReference || value instanceof IntegerValue || value instanceof BooleanValue
+                || value instanceof ByteValue || value instanceof CharValue || value instanceof ShortValue
+                || value instanceof LongValue || value instanceof FloatValue || value instanceof DoubleValue){
             out.append(value);
         }else if(value instanceof ObjectReference){
             ObjectReference obj = (ObjectReference) value;
+            String type = obj.referenceType().name();
+            if("java.lang.Integer".equals(type) || "java.lang.Boolean".equals(type) || "java.lang.Float".equals(type)
+                    || "java.lang.Double".equals(type) || "java.lang.Long".equals(type) || "java.lang.Byte".equals(type)
+                    || "java.lang.Character".equals(type)){
 
-            out.append(obj.referenceType());
+                Field f = obj.referenceType().fieldByName("value");
+                out.append(obj.getValue(f));
+
+            }else if("java.util.Date".equals(type)) {
+
+                Field field = obj.referenceType().fieldByName("fastTime");
+                Date date = new Date(Long.parseLong("" + obj.getValue(field)));
+                out.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+
+            }else if(value instanceof ArrayReference){
+                ArrayReference ar = (ArrayReference) value;
+                List<Value> values = ar.getValues();
+                out.append("[");
+                for (int i = 0; i < values.size(); i++){
+                    if( i != 0 ) out.append(" ,");
+                    out.append(parseValue(values.get(i)));
+                }
+                out.append("]");
+            }else {
+                out.append(type);
+            }
         }
-        logger.log(out.toString());
+        return out.toString();
     }
 
 }
