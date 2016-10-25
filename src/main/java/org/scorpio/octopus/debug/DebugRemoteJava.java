@@ -145,7 +145,9 @@ public class DebugRemoteJava{
         ThreadReference threadReference = event.thread();
         StackFrame stackFrame = threadReference.frame(0);
 
-        logger.log("<<================<<" + stackFrame.location() + ">>================>>");
+        logger.log("<<================<< " + stackFrame.location()
+        		+ " / " + stackFrame.location().method().name()
+        		+ " >>================>>");
         logger.log("[方法参数]");
         List<Value> argsList = stackFrame.getArgumentValues();
         for (Value arg : argsList){
